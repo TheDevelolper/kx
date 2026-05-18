@@ -1,0 +1,33 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Add projects to solution",
+			"type": "shell",
+			"command": "dotnet sln Kx.slnx add $(find . -name \"*.csproj\")",
+			"options": {
+				"cwd": "${workspaceFolder}/src"
+			},
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Install Project",
+			"type": "shell",
+			"command": "dotnet new install ./templates/kx-starter --force",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Uninstall Project",
+			"type": "shell",
+			"command": "dotnet new uninstall ./templates/kx-starter",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		}
+	]
+}

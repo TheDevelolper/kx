@@ -1,0 +1,9 @@
+{
+  "author": "Kiran Randhawa",
+  "classifications": ["Clean Architecture"],
+  "identity": "Kx.CleanArchitecture",
+  "name": "Kx Clean Architecture",
+  "shortName": "kx-clean",
+  "sourceName": "Kx",
+  "preferNameDirectory": true
+}

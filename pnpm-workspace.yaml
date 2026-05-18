@@ -1,0 +1,3 @@
+dependencies:
+  - src/apps/*
+  - src/libs/*

@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/libs/" />
+  <Folder Name="/libs/core/">
+    <Project Path="libs/core/Kx.Contracts/Kx.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/libs/core/Kx.Application/">
+    <Project Path="libs/core/Kx.Application/Kx.Application.Cli/Kx.Application.Cli.csproj" />
+  </Folder>
+
+</Solution>
