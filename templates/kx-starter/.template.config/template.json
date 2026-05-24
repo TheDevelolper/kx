@@ -3,7 +3,16 @@
   "classifications": ["Clean Architecture"],
   "identity": "Kx.CleanArchitecture",
   "name": "Kx Clean Architecture",
-  "shortName": "kx-clean",
+  "shortName": "kx-starter",
   "sourceName": "Kx",
-  "preferNameDirectory": true
+  "preferNameDirectory": true,
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "exclude": ["node_modules/**", "bin/**", "obj/**", ".gitignore", ".npmrc"]
+        }
+      ]
+    }
+  ]
 }

@@ -12,7 +12,7 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Install Project",
+			"label": "Install Template",
 			"type": "shell",
 			"command": "dotnet new install ./templates/kx-starter --force",
 			"options": {
@@ -21,13 +21,31 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Uninstall Project",
+			"label": "Uninstall Template",
 			"type": "shell",
 			"command": "dotnet new uninstall ./templates/kx-starter",
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
 			"problemMatcher": []
+		}, 
+		{
+			"label": "Create New Project From Template",
+			"type": "shell",
+			"command": "dotnet new kx-starter -n ${input:projectName} -o ${workspaceFolder}/src/${input:projectName}",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		} 
+
+	],
+	"inputs": [
+		{
+			"id": "projectName",
+			"type": "promptString",
+			"description": "The name of the project",
+			"default": "MyExampleProject"
 		}
 	]
 }

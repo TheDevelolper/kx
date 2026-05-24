@@ -3,9 +3,10 @@
 ## Domain
 
 ### Entities
+
 Core business objects with identity and business rules.
 
-Examples:
+_Examples:_
 
 ```csharp
 User
@@ -15,9 +16,10 @@ Subscription
 ```
 
 ### Value Objects
+
 Immutable objects representing concepts without identity.
 
-Examples:
+_Examples:_
 
 ```csharp
 EmailAddress
@@ -27,9 +29,10 @@ DateRange
 ```
 
 ### Domain Services
+
 Business logic that does not naturally belong to a single entity.
 
-Examples:
+_Examples:_
 
 ```csharp
 PricingCalculator
@@ -38,9 +41,10 @@ SubscriptionPolicy
 ```
 
 ### Repository Interfaces
+
 Abstractions for persistence required by the domain/application.
 
-Examples:
+_Examples:_
 
 ```csharp
 UserRepository
@@ -49,9 +53,10 @@ InvoiceRepository
 ```
 
 ### Domain Events
+
 Business events that occurred in the domain.
 
-Examples:
+_Examples:_
 
 ```csharp
 UserRegistered
@@ -60,9 +65,10 @@ InvoicePaid
 ```
 
 ### Specifications / Policies
+
 Reusable business rules and validation policies.
 
-Examples:
+_Examples:_
 
 ```csharp
 PasswordPolicy
@@ -74,9 +80,10 @@ DiscountEligibilityPolicy
 ## Application
 
 ### Commands / Command Handlers
+
 Write operations.
 
-Examples:
+_Examples:_
 
 ```csharp
 RegisterUser
@@ -86,9 +93,10 @@ UpdateProfile
 ```
 
 ### Queries / Query Handlers
+
 Read operations.
 
-Examples:
+_Examples:_
 
 ```csharp
 GetUserById
@@ -98,9 +106,10 @@ GetInvoiceSummary
 ```
 
 ### Ports / Interfaces
+
 Abstractions the application needs, implemented by infrastructure.
 
-Examples:
+_Examples:_
 
 ```csharp
 PasswordHasher
@@ -111,9 +120,10 @@ CacheProvider
 ```
 
 ### DTOs / Contracts
+
 Input and output shapes for use cases.
 
-Examples:
+_Examples:_
 
 ```csharp
 RegisterUserCommand
@@ -123,9 +133,10 @@ GetUserByIdResult
 ```
 
 ### Validators
+
 Application-level validation before running a use case.
 
-Examples:
+_Examples:_
 
 ```csharp
 Required fields
@@ -134,12 +145,14 @@ Permission checks
 ```
 
 ### Mappers
+
 Translate between domain objects, DTOs, and read models.
 
 ### Behaviours / Pipeline
+
 Cross-cutting logic around handlers.
 
-Examples:
+_Examples:_
 
 ```csharp
 Validation
@@ -151,12 +164,14 @@ Metrics
 ```
 
 ### Application Services
+
 Shared workflow logic used by multiple use cases.
 
 ### Application Event Handlers
+
 React to application/domain events.
 
-Examples:
+_Examples:_
 
 ```csharp
 SendWelcomeEmail
@@ -169,9 +184,10 @@ PublishIntegrationEvent
 ## Infrastructure
 
 ### Persistence
+
 Database implementations and ORM integrations.
 
-Examples:
+_Examples:_
 
 ```csharp
 PrismaUserRepository
@@ -180,9 +196,10 @@ MongoInvoiceRepository
 ```
 
 ### External Services
+
 Integrations with third-party systems.
 
-Examples:
+_Examples:_
 
 ```csharp
 StripePaymentGateway
@@ -191,9 +208,10 @@ TwilioSmsSender
 ```
 
 ### Security
+
 Authentication, hashing, encryption, and authorization implementations.
 
-Examples:
+_Examples:_
 
 ```csharp
 BcryptPasswordHasher
@@ -201,9 +219,10 @@ JwtTokenGenerator
 ```
 
 ### Messaging
+
 Queues, event buses, and message brokers.
 
-Examples:
+_Examples:_
 
 ```csharp
 KafkaEventBus
@@ -211,9 +230,10 @@ RabbitMqPublisher
 ```
 
 ### Storage
+
 File and blob storage implementations.
 
-Examples:
+_Examples:_
 
 ```csharp
 S3FileStorage
@@ -221,9 +241,10 @@ AzureBlobStorage
 ```
 
 ### Caching
+
 Cache implementations.
 
-Examples:
+_Examples:_
 
 ```csharp
 RedisCacheProvider
@@ -231,9 +252,10 @@ MemoryCacheProvider
 ```
 
 ### Logging / Monitoring
+
 Infrastructure-level observability.
 
-Examples:
+_Examples:_
 
 ```csharp
 SerilogLogger
@@ -241,9 +263,10 @@ OpenTelemetryTracing
 ```
 
 ### Infrastructure Event Handlers
+
 Technical/integration event processing.
 
-Examples:
+_Examples:_
 
 ```csharp
 StripeWebhookHandler
@@ -255,9 +278,10 @@ KafkaConsumer
 ## Presentation
 
 ### Controllers / Endpoints
+
 HTTP/API entry points.
 
-Examples:
+_Examples:_
 
 ```csharp
 UsersController
@@ -265,12 +289,14 @@ OrdersController
 ```
 
 ### Routes
+
 Route registration and endpoint definitions.
 
 ### Request DTOs
+
 Incoming request shapes.
 
-Examples:
+_Examples:_
 
 ```csharp
 RegisterUserRequest
@@ -278,9 +304,10 @@ CreateOrderRequest
 ```
 
 ### Response DTOs
+
 Outgoing response shapes.
 
-Examples:
+_Examples:_
 
 ```csharp
 UserResponse
@@ -288,9 +315,10 @@ OrderSummaryResponse
 ```
 
 ### Middleware
+
 HTTP pipeline behaviours.
 
-Examples:
+_Examples:_
 
 ```csharp
 AuthenticationMiddleware
@@ -299,12 +327,15 @@ RequestLoggingMiddleware
 ```
 
 ### GraphQL Resolvers
+
 GraphQL entry points.
 
 ### CLI Commands
+
 Command-line entry points.
 
 ### WebSocket Handlers
+
 Realtime communication handlers.
 
 ---
@@ -312,9 +343,10 @@ Realtime communication handlers.
 ## Composition Root
 
 ### Dependency Injection / Wiring
+
 Application startup and dependency registration.
 
-Examples:
+_Examples:_
 
 ```csharp
 Container configuration
@@ -323,9 +355,10 @@ Handler registration
 ```
 
 ### Configuration
+
 Environment and application configuration.
 
-Examples:
+_Examples:_
 
 ```csharp
 Database config
@@ -334,9 +367,10 @@ Feature flags
 ```
 
 ### Bootstrap / Startup
+
 Application initialization.
 
-Examples:
+_Examples:_
 
 ```csharp
 HTTP server startup

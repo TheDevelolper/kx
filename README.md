@@ -25,7 +25,7 @@ dotnet new uninstall ./templates/kx-starter
 After installing, create a new project
 
 ```sh
-dotnet new kx-clean -n ExampleProject
+dotnet new kx-starter -n ExampleProject
 ```
 
 Or from a directory:
@@ -33,7 +33,5 @@ Or from a directory:
 ```sh
 mkdir ExampleProject
 cd ExampleProject
-dotnet new kx-clean
+dotnet new kx-starter
 ```
-
-

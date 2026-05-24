@@ -4,6 +4,7 @@
   "description": "",
 
   "scripts": {
+    "preinstall": "node -e \"if (!/pnpm/.test(process.env.npm_execpath || '')) { console.error('Use pnpm install instead of npm install'); require('fs').unlinkSync('./package-lock.json'); process.exit(1); }\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

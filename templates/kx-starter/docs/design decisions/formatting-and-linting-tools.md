@@ -1,10 +1,28 @@
-# Tool Responsibilities
+# Formatting and Linting - Design Decisions
 
-## EditorConfig
+## Mental Model
+
+#### EditorConfig:
+
+"Ensure editors behave consistently."
+
+#### Prettier:
+
+"Make the code look clean."
+
+#### ESLint:
+
+"Don't write problematic code."
+
+#### Architectural Tests:
+
+"Does the whole system still obey the intended design?"
+
+### EditorConfig
 
 Provides universal editor-level formatting and whitespace consistency across different IDEs and editors.
 
-Examples:
+**Examples:**
 
 - indentation style
 - indentation size
@@ -20,11 +38,11 @@ We leave basic indentation responsibilities to EditorConfig because it is editor
 
 ---
 
-## Prettier
+### Prettier
 
 Handles code formatting and visual layout.
 
-Examples:
+**Examples:**
 
 - wrapping
 - quotes
@@ -40,11 +58,11 @@ Prettier should focus on code formatting rather than editor behaviour.
 
 ---
 
-## ESLint
+### ESLint
 
 Provides fast feedback while coding and enforces source-level rules.
 
-Examples:
+**Examples:**
 
 - unused variables
 - unsafe TypeScript usage
@@ -58,11 +76,11 @@ Goal:
 
 ---
 
-## Architectural Tests
+### Architectural Tests
 
 Protect the overall system design and validate higher-level architectural boundaries.
 
-Examples:
+**Examples:**
 
 - domain cannot reference infrastructure
 - enforce clean architecture layers
@@ -72,19 +90,3 @@ Examples:
 
 Goal:
 "Ensure the overall system architecture remains correct over time."
-
----
-
-# Mental Model
-
-EditorConfig:
-"Ensure editors behave consistently."
-
-Prettier:
-"Make the code look clean."
-
-ESLint:
-"Don't write problematic code."
-
-Architectural Tests:
-"Does the whole system still obey the intended design?"
