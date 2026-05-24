@@ -1,4 +1,8 @@
 
+# Ignore node
+/node_modules
+**/node_modules
+
 # .NET build output
 /**/bin/*
 /**/obj/*

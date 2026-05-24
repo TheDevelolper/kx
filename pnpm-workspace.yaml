@@ -1,3 +1,2 @@
-dependencies:
-  - src/apps/*
-  - src/libs/*
+packages:
+  - templates/kx-starter
