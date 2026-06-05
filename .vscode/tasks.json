@@ -6,7 +6,7 @@
 			"type": "shell",
 			"command": "dotnet sln Kx.slnx add $(find . -name \"*.csproj\")",
 			"options": {
-				"cwd": "${workspaceFolder}/src"
+				"cwd": "${workspaceFolder}/templates/kx-starter/src"
 			},
 			"group": "build",
 			"problemMatcher": []
