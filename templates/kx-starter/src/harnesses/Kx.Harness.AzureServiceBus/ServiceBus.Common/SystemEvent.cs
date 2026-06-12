@@ -5,7 +5,13 @@ namespace Kx.Harness.AzureServiceBus.ServiceBus.Common;
 /// </summary>
 internal abstract record SystemEvent
 {
-    public Guid Id { get; init; } = Guid.CreateVersion7();
+    /// <summary>
+    /// Unique identifier for the system event
+    /// </summary>
+    public required Guid Id { get; init; }
+
+    /// <summary>
+    /// Timestamp indicating when the event occurred in UTC
+    /// </summary>
     public DateTime OccurredAt { get; init; } = DateTime.UtcNow;
 }
-

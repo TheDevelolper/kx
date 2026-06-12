@@ -19,10 +19,12 @@ public class ServiceBusTests: IClassFixture<ServiceBusTestFixture>
         // arrange
         var envelope = new SystemEventEnvelope<ProductCreatedEvent>()
         {
+            MessageId = Guid.CreateVersion7(),
             CorrelationId = Guid.CreateVersion7(),
             CausationId = Guid.CreateVersion7(),
             Event = new ProductCreatedEvent
             {
+                Id = Guid.CreateVersion7(),
                 Name = "Test Product",
                 Price = 9.99m
             }
@@ -39,14 +41,24 @@ public class ServiceBusTests: IClassFixture<ServiceBusTestFixture>
     public async Task Can_Receive_Event_Message()
     {
         // arrange
+        var correlationId = Guid.CreateVersion7();
+        var causationId = Guid.CreateVersion7();
+        var messageId = Guid.CreateVersion7();
+        var eventId = Guid.CreateVersion7();
+
+        var productName = "Test Product";
+        var productPrice = 9.99m;
+
         var sendEnvelope = new SystemEventEnvelope<ProductCreatedEvent>()
         {
-            CorrelationId = Guid.CreateVersion7(),
-            CausationId = Guid.CreateVersion7(),
+            MessageId = messageId,
+            CorrelationId = correlationId,
+            CausationId = causationId,
             Event = new ProductCreatedEvent
             {
-                Name = "Test Product",
-                Price = 9.99m
+                Id = eventId,
+                Name = productName,
+                Price = productPrice
             }
         };
 
@@ -61,58 +73,25 @@ public class ServiceBusTests: IClassFixture<ServiceBusTestFixture>
         var envelopes = _fixture.subject.ReceiveMessagesAsync<ProductCreatedEvent>(cancellationToken);
 
         // assert
-        var envelopeCount = 0;
 
         await foreach (var envelope in envelopes)
         {
-            Assert.Equal("Test Product", envelope.Event.Name);
-            Assert.Equal(9.99m, envelope.Event.Price);
-
-            envelopeCount++;
-
-            if(envelopeCount == sendMessages.Length)
+            if(eventId != envelope.Event.Id)
             {
-                /*
-                 * this also implicitly tests Assert.Equals(sendMessages.Length,envelopeCount);
-                 * else there will be a timeout from the cancellation token which will throw exception.
-                */
-                break;
+                continue;
             }
 
+            Assert.Equal(eventId, envelope.Event.Id);
+            Assert.Equal(typeof(SystemEventEnvelope<ProductCreatedEvent>), envelope.GetType());
+
+            Assert.Equal(productName, envelope.Event.Name);
+            Assert.Equal(productPrice, envelope.Event.Price);
+            Assert.Equal(messageId, envelope.MessageId);
+            Assert.Equal(causationId, envelope.CausationId);
+            Assert.Equal(correlationId, envelope.CorrelationId);
+
+            break;
         }
     }
-
 }
 
-public class ServiceBusTestFixture: IDisposable
-{
-    internal readonly IServiceBus subject;
-    private readonly ServiceBusContainer serviceBusContainer;
-
-    public ServiceBusTestFixture()
-        {
-        var serviceBusImageName = "mcr.microsoft.com/azure-messaging/servicebus-emulator:latest";
-        var queueName = "queue.1";
-
-        serviceBusContainer = new ServiceBusBuilder(serviceBusImageName)
-            .WithName("azure-service-bus-emulator")
-            .WithAcceptLicenseAgreement(true)
-            .Build();
-
-        serviceBusContainer.StartAsync().GetAwaiter().GetResult();
-
-        var connectionString = serviceBusContainer.GetConnectionString();
-
-        subject = new AzureServiceBusClient(
-            new AzureServiceBusConfig(
-                connectionString,
-                queueName
-        ));
-    }
-
-    public void Dispose()
-        {
-        serviceBusContainer.DisposeAsync().GetAwaiter().GetResult();
-        GC.SuppressFinalize(this);
-        }
-    }

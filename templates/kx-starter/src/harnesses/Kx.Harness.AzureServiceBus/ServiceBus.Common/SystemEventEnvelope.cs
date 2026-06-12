@@ -10,6 +10,14 @@ namespace Kx.Harness.AzureServiceBus.ServiceBus.Common;
 internal class SystemEventEnvelope<TEvent> where TEvent : SystemEvent
 {
     /// <summary>
+    /// The unique identifier for this message.
+    /// </summary>
+    /// <remarks>
+    /// Used by <see cref="CausationId"/> to identify the message that directly caused another message.
+    /// </remarks>
+    public required Guid MessageId { get; init; }
+
+    /// <summary>
     /// The actual system event being wrapped, containing the details of the event such as its type, timestamp, and unique identifier. This allows the event to be transmitted through the service bus while maintaining its original structure and information.
     /// </summary>
     public required TEvent Event { get; init; }
@@ -17,11 +25,33 @@ internal class SystemEventEnvelope<TEvent> where TEvent : SystemEvent
     /// <summary>
     /// Groups related messages together for tracing across distributed systems, allowing you to see all messages that are part of the same workflow or transaction. This is especially useful for debugging and monitoring complex interactions between services.
     /// </summary>
-    public required Guid CorrelationId { get; init; } = Guid.CreateVersion7();
+    public required Guid CorrelationId { get; init; }
 
     /// <summary>
     /// Identifies the specific cause of the event, such as a user action or another event that triggered this event. This helps in understanding the chain of events and their relationships, making it easier to trace back to the root cause of an issue or to analyze the flow of events in a system.
     /// </summary>
-    public required Guid CausationId { get; init; } = Guid.CreateVersion7();
+    public required Guid CausationId { get; init; }
+
+    public SystemEventEnvelope<TEvent> Create(TEvent systemEvent, Guid? correlationId = null, Guid? causationId = null)
+    {
+        return new SystemEventEnvelope<TEvent>()
+        {
+            MessageId = Guid.CreateVersion7(),
+            Event = systemEvent,
+            CausationId = causationId ?? Guid.CreateVersion7(),
+            CorrelationId = correlationId ?? Guid.CreateVersion7()
+        };
+    }
+
+    public SystemEventEnvelope<TEvent> Create(TEvent systemEvent, SystemEventEnvelope<TEvent> previous)
+    {
+        return new SystemEventEnvelope<TEvent>()
+        {
+            MessageId = Guid.CreateVersion7(),
+            Event = systemEvent,
+            CausationId = previous.MessageId,
+            CorrelationId = previous.CorrelationId
+        };
+    }
 }
 
